@@ -2,16 +2,17 @@ import { NextPage } from "next";
 import React, { PropsWithChildren, ReactElement } from "react";
 import { styled } from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
   return (
     <Container>
       <Header>
-        <Image src="/icon.svg" alt="logo Rick and Morty" width={40} height={40} />
+        <Image src="/icon.svg" alt="logo Rick and Morty" width={40} height={40} priority />
         <Navigate>
-          <p>Characters</p>
-          <p>Location</p>
-          <p>Episode</p>
+          <Button href={"/characters"}>Characters</Button>
+          <Button href={"/locations"}>Location</Button>
+          <Button href={"/episodes"}>Episode</Button>
         </Navigate>
       </Header>
       <div>{children}</div>
@@ -41,4 +42,7 @@ const Container = styled.div`
   margin-right: auto;
   padding-left: 16px;
   padding-right: 16px;
+`;
+const Button = styled(Link)`
+  all: unset;
 `;
