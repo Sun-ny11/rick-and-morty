@@ -45,4 +45,10 @@ const Container = styled.div`
 `;
 const Button = styled(Link)`
   all: unset;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  &:hover {
+    background-color: #f7f5e6;
+  }
 `;

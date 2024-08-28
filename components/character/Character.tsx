@@ -1,13 +1,14 @@
 import React from "react";
 import { styled } from "styled-components";
-import { CharacterType } from "../../assets/types/charactersTypes";
+import { CharacterType, Episode } from "../../assets/types/types";
 import Image from "next/image";
 
 type Props = {
   character: CharacterType;
+  episodes?: Episode[];
 };
 
-export const Character = ({ character }: Props) => {
+export const Character = ({ character, episodes }: Props) => {
   return (
     <Card key={character.id}>
       <ImageWrapper>
@@ -26,12 +27,24 @@ export const Character = ({ character }: Props) => {
         <Field>
           <Label>Origin:</Label> <Value>{character.origin.name}</Value>
         </Field>
+        {episodes && (
+          <Field>
+            <Label>Episodes:</Label>
+            <ul>
+              {episodes.map((el) => (
+                <li key={el.id}>
+                  <Value>{el.name}</Value>
+                </li>
+              ))}
+            </ul>
+          </Field>
+        )}
       </Info>
     </Card>
   );
 };
 
-const Card = styled.main`
+export const Card = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -58,11 +71,11 @@ const Info = styled.div`
   width: 100%;
 `;
 
-const Field = styled.div`
+export const Field = styled.div`
   margin-bottom: 10px;
 `;
 
-const Label = styled.span`
+export const Label = styled.span`
   font-weight: bold;
   font-size: 14px;
   color: #4a4a4a;

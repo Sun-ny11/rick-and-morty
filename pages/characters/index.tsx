@@ -4,10 +4,10 @@ import axios from "axios";
 import styled from "styled-components";
 import React from "react";
 import { Character } from "@/components/character/Character";
-import { ApiResponse, CharacterType } from "@/assets/types/charactersTypes";
+import { ApiResponse, CharacterType } from "@/assets/types/types";
 
 export const getStaticProps = async () => {
-  const charactersRes = await axios.get<ApiResponse>("https://rickandmortyapi.com/api/character");
+  const charactersRes = await axios.get<ApiResponse<CharacterType>>("https://rickandmortyapi.com/api/character");
   return {
     props: {
       characters: charactersRes.data.results,
@@ -42,7 +42,7 @@ export default function Characters({ characters }: Props) {
 }
 Characters.getLayout = getLayout;
 
-const Main = styled.main`
+export const Main = styled.main`
   margin-top: 30px;
   display: flex;
   flex-wrap: wrap;

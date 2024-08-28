@@ -4,18 +4,18 @@ import axios from "axios";
 import styled from "styled-components";
 import React from "react";
 import { Character } from "@/components/character/Character";
-import { ApiResponse, CharacterType } from "@/assets/types/charactersTypes";
+import { ApiResponse, CharacterType, Episode } from "@/assets/types/types";
 import { GetStaticProps } from "next";
 
 export const getStaticPaths = async () => {
-  const charactersRes = await axios.get<ApiResponse>(`https://rickandmortyapi.com/api/character`);
+  const charactersRes = await axios.get<ApiResponse<CharacterType>>(`https://rickandmortyapi.com/api/character`);
   const paths = charactersRes.data.results.map((el) => {
     return { params: { id: String(el.id) } };
   });
 
   return {
     paths,
-    fallback: false, // false or "blocking"
+    fallback: "blocking", // false or "blocking"
   };
 };
 
@@ -23,8 +23,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params || {};
 
   const characterRes = await axios.get<CharacterType>(`https://rickandmortyapi.com/api/character/${id}`);
+  //
 
-  if (!characterRes) {
+  const episodes = await Promise.all(
+    characterRes.data.episode.map((el) => {
+      return axios.get<string[]>(el).then((res) => res.data);
+    })
+  );
+
+  if (!characterRes || !episodes.length) {
     return {
       notFound: true,
     };
@@ -33,18 +40,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       character: characterRes.data,
+      episodes: episodes,
     },
   };
 };
 
 type Props = {
   character: CharacterType;
+  episodes: Episode[];
 };
-export default function Characters({ character }: Props) {
+export default function Characters({ character, episodes }: Props) {
   if (!character) {
     return <h1>No characters</h1>;
   }
-
   return (
     <>
       <Head>
@@ -55,7 +63,7 @@ export default function Characters({ character }: Props) {
       </Head>
 
       <Main>
-        <Character character={character} />
+        <Character character={character} episodes={episodes} />
       </Main>
     </>
   );
