@@ -5,6 +5,7 @@ import styled from "styled-components";
 import React from "react";
 import { Character } from "@/components/character/Character";
 import { ApiResponse, CharacterType } from "@/assets/types/types";
+import Link from "next/link";
 
 export const getStaticProps = async () => {
   const charactersRes = await axios.get<ApiResponse<CharacterType>>("https://rickandmortyapi.com/api/character");
@@ -34,7 +35,11 @@ export default function Characters({ characters }: Props) {
 
       <Main>
         {characters.map((character) => {
-          return <Character key={character.id} character={character} />;
+          return (
+            <StyledLink key={character.id} href={`characters/${character.id}`}>
+              <Character character={character} />
+            </StyledLink>
+          );
         })}
       </Main>
     </>
@@ -42,9 +47,14 @@ export default function Characters({ characters }: Props) {
 }
 Characters.getLayout = getLayout;
 
-export const Main = styled.main`
+export const Main = styled.div`
   margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
+`;
+const StyledLink = styled(Link)`
+  all: inherit;
+  cursor: pointer;
 `;

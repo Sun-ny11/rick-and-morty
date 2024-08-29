@@ -1,5 +1,5 @@
 import { ApiResponse, Location } from "@/assets/types/types";
-import { Card, Field, Label } from "@/components/character/Character";
+import { Card, Label } from "@/components/character/Character";
 import { getLayout } from "@/components/layout/Layout";
 import axios from "axios";
 import styled from "styled-components";
@@ -51,7 +51,7 @@ export default function Locations({ locations }: Props) {
 }
 Locations.getLayout = getLayout;
 
-const CardWrapper = styled(Main)`
+export const CardWrapper = styled(Main)`
   display: flex;
   flex-wrap: wrap;
 `;
