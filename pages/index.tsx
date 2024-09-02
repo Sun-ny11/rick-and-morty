@@ -2,12 +2,19 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { getLayout } from "@/components/layout/Layout";
+import { useTranslation } from "@/hook/useTranstaion";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const getStaticProps = async () => {};
+  // const router = useRouter();
 
+  // console.log("router.locales: ", router.locales);
+  // console.log(" router.locale: ", router.locale);
+  // console.log("router.defaultLocale: ", router.defaultLocale);
+
+  // const t = router.locale === "en" ? en : ru;
+  const { t } = useTranslation();
   return (
     <>
       <Head>
@@ -17,7 +24,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={`${styles.main} ${inter.className}`}>Стартовая страничка</main>
+      <main className={`${styles.main} ${inter.className}`}>
+        <h1>{t.test}</h1>
+      </main>
     </>
   );
 }
