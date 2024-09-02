@@ -3,16 +3,22 @@ import React, { PropsWithChildren, ReactElement } from "react";
 import { styled } from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { LangSelect } from "../langSelect/LangSelect";
+import { useTranslation } from "@/hook/useTranstaion";
 
 export const Layout: NextPage<PropsWithChildren> = ({ children }) => {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <Header>
         <Image src="/icon.svg" alt="logo Rick and Morty" width={40} height={40} priority />
+
         <Navigate>
-          <Button href={"/characters"}>Characters</Button>
-          <Button href={"/locations"}>Location</Button>
-          <Button href={"/episodes"}>Episode</Button>
+          <Button href={"/characters"}>{t.navigate.characters}</Button>
+          <Button href={"/locations"}>{t.navigate.locations}</Button>
+          <Button href={"/episodes"}>{t.navigate.episodes}</Button>
+          <LangSelect />
         </Navigate>
       </Header>
       <div>{children}</div>
