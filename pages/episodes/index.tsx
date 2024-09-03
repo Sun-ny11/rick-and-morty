@@ -4,6 +4,7 @@ import { getLayout } from "@/components/layout/Layout";
 import axios from "axios";
 import { CardWrapper } from "../locations";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { useTranslation } from "@/hook/useTranstaion";
 
 const getEpisodes = async () =>
   axios.get<ApiResponse<Episode>>(`https://rickandmortyapi.com/api/episode`).then((res) => res.data);
@@ -24,6 +25,8 @@ export const getStaticProps = async () => {
 };
 
 export default function Episodes() {
+  const { t } = useTranslation();
+
   const { data } = useQuery({
     queryKey: ["episodes"],
     queryFn: getEpisodes,
@@ -35,16 +38,18 @@ export default function Episodes() {
 
   return (
     <CardWrapper>
-      {data?.results.map((episode) => (
-        <Card key={episode.id}>
-          <div>
-            <Label>Name:</Label> {episode.name}
-          </div>
-          <div>
-            <Label>Date:</Label> {episode.air_date}
-          </div>
-        </Card>
-      ))}
+      {data?.results.map((episode) => {
+        return (
+          <Card key={episode.id}>
+            <div>
+              <Label>{t.episode.name}:</Label> {episode.name}
+            </div>
+            <div>
+              <Label>{t.episode.date}:</Label> {episode.air_date}
+            </div>
+          </Card>
+        );
+      })}
     </CardWrapper>
   );
 }

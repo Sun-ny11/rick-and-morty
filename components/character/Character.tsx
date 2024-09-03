@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { CharacterType, Episode } from "../../assets/types/types";
 import Image from "next/image";
+import { useTranslation } from "@/hook/useTranstaion";
 
 type Props = {
   character: CharacterType;
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export const Character = ({ character, episodes }: Props) => {
+  const { t } = useTranslation();
   return (
     <Card key={character.id}>
       <ImageWrapper>
@@ -16,20 +18,20 @@ export const Character = ({ character, episodes }: Props) => {
       </ImageWrapper>
       <Info>
         <Field>
-          <Label>Name:</Label> <Value>{character.name}</Value>
+          <Label>{t.character.name}:</Label> <Value>{character.name}</Value>
         </Field>
         <Field>
-          <Label>Gender:</Label> <Value>{character.gender}</Value>
+          <Label>{t.character.gender}:</Label> <Value>{character.gender}</Value>
         </Field>
         <Field>
-          <Label>Status:</Label> <Value>{character.status}</Value>
+          <Label>{t.character.status}:</Label> <Value>{character.status}</Value>
         </Field>
         <Field>
-          <Label>Origin:</Label> <Value>{character.origin.name}</Value>
+          <Label>{t.character.origin}:</Label> <Value>{character.origin.name}</Value>
         </Field>
         {episodes && (
           <Field>
-            <Label>Episodes:</Label>
+            <Label>{t.character.episodes}:</Label>
             <ul>
               {episodes.map((el) => (
                 <li key={el.id}>

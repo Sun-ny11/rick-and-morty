@@ -4,6 +4,7 @@ import { getLayout, Main } from "@/components/layout/Layout";
 import axios from "axios";
 import styled from "styled-components";
 import { GetServerSideProps } from "next";
+import { useTranslation } from "@/hook/useTranstaion";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   // res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate=100");
@@ -28,6 +29,8 @@ type Props = {
   locations: Location[];
 };
 export default function Locations({ locations }: Props) {
+  const { t } = useTranslation();
+
   if (!locations) {
     return;
   }
@@ -38,10 +41,10 @@ export default function Locations({ locations }: Props) {
         <Card key={location.id}>
           <LocationTitle>{location.name}</LocationTitle>
           <div>
-            <Label>Type:</Label> {location.type}
+            <Label>{t.location.type}:</Label> {location.type}
           </div>
           <div>
-            <Label>Dimension:</Label> {location.dimension}
+            <Label>{t.location.dimension}:</Label> {location.dimension}
           </div>
         </Card>
       ))}
