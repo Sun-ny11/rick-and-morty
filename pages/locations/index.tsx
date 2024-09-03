@@ -1,9 +1,8 @@
 import { ApiResponse, Location } from "@/assets/types/types";
 import { Card, Label } from "@/components/character/Character";
-import { getLayout } from "@/components/layout/Layout";
+import { getLayout, Main } from "@/components/layout/Layout";
 import axios from "axios";
 import styled from "styled-components";
-import { Main } from "../characters";
 import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {

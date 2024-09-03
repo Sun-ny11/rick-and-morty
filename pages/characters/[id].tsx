@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { getLayout } from "@/components/layout/Layout";
 import axios from "axios";
-import styled from "styled-components";
 import React from "react";
 import { Character } from "@/components/character/Character";
 import { ApiResponse, CharacterType, Episode } from "@/assets/types/types";
@@ -62,17 +61,10 @@ export default function Characters({ character, episodes }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Main>
+      <>
         <Character character={character} episodes={episodes} />
-      </Main>
+      </>
     </>
   );
 }
 Characters.getLayout = getLayout;
-
-const Main = styled.main`
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;

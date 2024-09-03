@@ -33,7 +33,7 @@ export default function Characters({ characters }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Main>
+      <>
         {characters.map((character) => {
           return (
             <StyledLink key={character.id} href={`characters/${character.id}`}>
@@ -41,19 +41,12 @@ export default function Characters({ characters }: Props) {
             </StyledLink>
           );
         })}
-      </Main>
+      </>
     </>
   );
 }
 Characters.getLayout = getLayout;
 
-export const Main = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-`;
 const StyledLink = styled(Link)`
   all: inherit;
   cursor: pointer;
